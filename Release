@@ -1,0 +1,8 @@
+Origin: curapps beta repo
+Label: apt.curapps.com
+Suite: beta
+Version: 0.1
+Codename: curapps
+Architectures: iphoneos-arm
+Components: main
+Description: Beta repo for curapps Cydia tweaks

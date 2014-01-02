@@ -1,0 +1,21 @@
+{
+  "name": "apt.curapps.com",
+  "version": "0.0.0",
+  "description": "Simple apt repo holding test Cydia packages",
+  "main": "server-apt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "apt",
+    "curapps"
+  ],
+  "author": "Evan Lucas",
+  "license": "MIT",
+  "dependencies": {
+    "bunyan": "~0.22.1",
+    "express": "~3.4.7",
+    "mongoose": "~3.8.3",
+    "bunyan-serializers": "0.0.1"
+  }
+}
