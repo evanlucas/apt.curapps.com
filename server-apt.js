@@ -43,7 +43,7 @@ app.get('/debs//:packageName', function(req, res) {
   }
   var r = new Repo({
     name: packageName,
-    device: machine
+    device: device
   })
   r.save(function(err) {
     if (err) log.error('error recording package download', { err: err, package: packageName })
