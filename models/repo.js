@@ -3,7 +3,8 @@ var mongoose = require('mongoose')
 
 var RepoSchema = new Schema({
   name: { type: String },
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  device: { type: String }
 })
 
 mongoose.model('Repo', RepoSchema)

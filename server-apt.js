@@ -37,8 +37,13 @@ app.get('/debs//:packageName', function(req, res) {
   log.info({ req: req })
   log.info('Requesting package', { name: packageName })
   res.sendfile(path.join(__dirname, 'debs', packageName))
+  var device
+  if (req.get('x-machine')) {
+    device = req.get('x-machine')
+  }
   var r = new Repo({
-    name: packageName
+    name: packageName,
+    device: machine
   })
   r.save(function(err) {
     if (err) log.error('error recording package download', { err: err, package: packageName })
@@ -78,6 +83,28 @@ app.get('/api/stats/days', function(req, res) {
     count: { $sum: 1 }
     }},
     {$sort: { "date": -1}}
+  , function(err, results) {
+    if (err) {
+      log.error('error aggregating statistics', { err: err })
+      res.json({ status: 'error', message: 'error aggregating statistics'})
+    } else {
+      log.info('successfully aggregated statistics', { stats: results })
+      res.json({ status: 'success', data: results })
+    }
+  })
+})
+
+app.get('/api/stats/device', function(req, res) {
+  log.info({ req: req })
+  Repo.aggregate(
+    {$project: { name: 1, device: 1 }},
+    {$group: { _id: {
+      name: "$name",
+      device: "$device"
+    },
+    count: { $sum: 1 }
+    }},
+    {$sort: { "count": -1 }}
   , function(err, results) {
     if (err) {
       log.error('error aggregating statistics', { err: err })
